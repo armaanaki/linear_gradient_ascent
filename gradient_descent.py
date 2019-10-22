@@ -74,6 +74,9 @@ while abs(slope_error) > 0.02 or abs(intercept_error) > 0.02:
     count += 1
     print("Epoch: %d\tSlope Error: %.5f\tIntercept Error: %.5f" % (count, slope_error, intercept_error))
 
+# print the final slope and intercept
+print ("\nSlope: %.5f\tIntercept: %.5f" % (slope, intercept))
+
 # create a prediciton with our final slope and intercept
 Y_pred = slope * X + intercept
 
@@ -82,5 +85,3 @@ plt.scatter(X, Y)
 plt.plot([min(X), max(X)], [min(Y_pred), max(Y_pred)], color='red')
 plt.show()
 
-# print the final slope and intercept
-print ("Slope: %.5f\tIntercept: %.5f" % (slope, intercept))
