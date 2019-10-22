@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--filename", help="the location of the data file (defaults to dataset.csv)")
 parser.add_argument("-slr", "--slopelearnrate", help="learn rate of the slope (defaults to 0.1)")
 parser.add_argument("-ilr", "--interceptlearnrate", help="learn rate of the intercept (defaults to 0.0001")
+parser.add_argument("-e", "--error", help="the error delta to exit the loop at (defaults to 0.02")
 args = parser.parse_args()
 
 # use filename if filename was provided
@@ -36,6 +37,12 @@ if args.interceptlearnrate:
     i_l_rate = float(args.interceptlearnrate)
 else:
     i_l_rate = 0.1
+
+# use max error delta if provided
+if args.error:
+    error = float(args.error)
+else:
+    error = 0.02
 
 # import the dataset using pandas -- this is to make functions on sets easier.
 dataset = pandas.read_csv(filename)
@@ -57,7 +64,7 @@ intercept_error = 1
 count = 0
 line = None
 
-while abs(slope_error) > 0.02 or abs(intercept_error) > 0.02:
+while abs(slope_error) > error or abs(intercept_error) > error:
     # get the current guess of Y
     Y_current = slope * X + intercept
 
